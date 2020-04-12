@@ -1,5 +1,5 @@
 {
-  "parent": "Vending:block/vending_machine",
+  "parent": "vending:block/vending_machine",
   "textures": {
     "bottom": "blocks/diamond_block",
     "top": "blocks/diamond_block",

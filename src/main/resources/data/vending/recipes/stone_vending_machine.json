@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XGX",
+    "*R*"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:glass"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "*": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "item": "vending:stone_vending_machine"
+  }
+}

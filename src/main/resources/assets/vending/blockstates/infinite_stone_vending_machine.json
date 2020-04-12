@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "vending:block/stone_vending_machine" }
+  }
+}

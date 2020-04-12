@@ -1,0 +1,10 @@
+{
+  "parent": "vending:block/vending_machine",
+  "textures": {
+    "bottom": "block/stone",
+    "top": "block/stone",
+    "side": "block/stone",
+    "vendor-top": "vending:block/vendor-top",
+    "vendor-side": "vending:block/vendor-side"
+  }
+}

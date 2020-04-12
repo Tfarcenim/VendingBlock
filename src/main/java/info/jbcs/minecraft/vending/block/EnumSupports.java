@@ -1,73 +1,48 @@
 package info.jbcs.minecraft.vending.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
 
 import javax.annotation.Nonnull;
 
 public enum EnumSupports implements IStringSerializable {
-    STONE(0, "stone", "stone", Blocks.STONE, Blocks.STONE),
-    COBBLE_STONE(1, "stonebrick", "stonebrick", Blocks.COBBLESTONE, Blocks.COBBLESTONE),
-    STONE_BRICK(2, "stonebricksmooth", "stonebricksmooth", Blocks.STONEBRICK, Blocks.STONEBRICK),
-    PLANKS(3, "wood", "wood", Blocks.PLANKS, Blocks.PLANKS),
-    CRAFTING_TABLE(4, "workbench", "workbench", Blocks.CRAFTING_TABLE, Blocks.CRAFTING_TABLE),
-    GRAVEL(5, "gravel", "gravel", Blocks.GRAVEL, Blocks.GRAVEL),
-    NOTEBLOCK(6, "musicblock", "musicblock", Blocks.NOTEBLOCK, Blocks.NOTEBLOCK),
-    SANDSTONE(7, "sandstone", "sandstone", Blocks.SANDSTONE, Blocks.SANDSTONE),
-    GOLD(8, "blockgold", "blockgold", Blocks.GOLD_BLOCK, Items.GOLD_INGOT),
-    IRON(9, "blockiron", "blockiron", Blocks.IRON_BLOCK, Items.IRON_INGOT),
-    BRICK(10, "brick", "brick", Blocks.BRICK_BLOCK, Blocks.BRICK_BLOCK),
-    COBBLESTONE_MOSSY(11, "stonemoss", "stonemoss", Blocks.MOSSY_COBBLESTONE, Blocks.MOSSY_COBBLESTONE),
-    OBSIDIAN(12, "obsidian", "obsidian", Blocks.OBSIDIAN, Blocks.OBSIDIAN),
-    DIAMOND(13, "blockdiamond", "blockdiamond", Blocks.DIAMOND_BLOCK, Items.DIAMOND),
-    EMERALD(14, "blockemerald", "blockemerald", Blocks.EMERALD_BLOCK, Items.EMERALD),
-    LAPIS(15, "blocklapis", "blocklapis", Blocks.LAPIS_BLOCK, Blocks.LAPIS_BLOCK);
+    STONE("stone", Blocks.STONE, Blocks.STONE),
+    COBBLE_STONE("stonebrick", Blocks.COBBLESTONE, Blocks.COBBLESTONE),
+    STONE_BRICK("stonebricksmooth", Blocks.STONE_BRICKS, Blocks.STONE_BRICKS),
+    PLANKS("wood", Blocks.OAK_PLANKS, Blocks.OAK_PLANKS),
+    CRAFTING_TABLE( "workbench", Blocks.CRAFTING_TABLE, Blocks.CRAFTING_TABLE),
+    GRAVEL("gravel", Blocks.GRAVEL, Blocks.GRAVEL),
+    NOTEBLOCK("musicblock", Blocks.NOTE_BLOCK, Blocks.NOTE_BLOCK),
+    SANDSTONE("sandstone", Blocks.SANDSTONE, Blocks.SANDSTONE),
+    GOLD("blockgold", Blocks.GOLD_BLOCK, Items.GOLD_INGOT),
+    IRON("blockiron", Blocks.IRON_BLOCK, Items.IRON_INGOT),
+    BRICK("brick", Blocks.BRICKS, Blocks.BRICKS),
+    COBBLESTONE_MOSSY("stonemoss", Blocks.MOSSY_COBBLESTONE, Blocks.MOSSY_COBBLESTONE),
+    OBSIDIAN("obsidian", Blocks.OBSIDIAN, Blocks.OBSIDIAN),
+    DIAMOND("blockdiamond", Blocks.DIAMOND_BLOCK, Items.DIAMOND),
+    EMERALD( "blockemerald", Blocks.EMERALD_BLOCK, Items.EMERALD),
+    LAPIS( "blocklapis", Blocks.LAPIS_BLOCK, Blocks.LAPIS_BLOCK);
     public final static int length = values().length;
-    private static final EnumSupports[] META_LOOKUP = new EnumSupports[values().length];
 
     static {
         EnumSupports[] var0 = values();
-        for (EnumSupports var3 : var0) {
-            META_LOOKUP[var3.getMetadata()] = var3;
-        }
     }
 
-    private final int meta;
     private final String name;
-    private final String unlocalizedName;
     private final Block supportBlock;
     private final Item reagent;
 
-    EnumSupports(int meta, String name, String unlocalizedName, Block supportBlock, Item reagent) {
-        this.meta = meta;
+    EnumSupports(String name, Block supportBlock, Item reagent) {
         this.name = name;
-        this.unlocalizedName = unlocalizedName;
         this.supportBlock = supportBlock;
         this.reagent = reagent;
     }
 
-    EnumSupports(int meta, String name, String unlocalizedName, Block supportBlock, Block reagent) {
-        this(meta, name, unlocalizedName, supportBlock, Item.getItemFromBlock(reagent));
-    }
-
-    public static EnumSupports byMetadata(int meta) {
-        if (meta < 0 || meta >= META_LOOKUP.length) meta = 0;
-        return META_LOOKUP[meta];
-    }
-
-    public int getMetadata() {
-        return this.meta;
-    }
-
-    public String getUnlocalizedName() {
-        return this.unlocalizedName;
-    }
-
-    public String toString() {
-        return this.unlocalizedName;
+    EnumSupports(String name, Block supportBlock, Block reagent) {
+        this(name, supportBlock, reagent.asItem());
     }
 
     @Nonnull

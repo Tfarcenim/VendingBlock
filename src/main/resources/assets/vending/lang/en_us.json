@@ -1,0 +1,47 @@
+{
+  "block.vending.stone_vending_machine": "Stone Vending Machine",
+  "block.vending.infinite_stone_vending_machine": "Infinite Stone Vending Machine",
+  "block.vendingMachineAdvanced": "Advanced Vending Block",
+  "block.vendingMachineMultiple": "Multiple Vending Block",
+  "item.vendingMachineWrench": "Vending Block Wrench",
+  "itemGroup.tabVending": "Vending",
+  "block.vendingStorageAttachment": "Vending Storage Attachment",
+
+  "text.vending.insufficient_funds" : "Insufficient funds",
+  "text.vending.out_of_stock" : "Out of Stock",
+
+  "gui.vending.select": "Select...",
+  "gui.vending.buy_storage": "Buy Buffer",
+  "gui.vending.sell_storage": "Sell Buffer",
+  "gui.vending.sell": "Sell",
+  "gui.vending.buy": "Buy",
+  "gui.vending.settings": "Vending block settings",
+  "gui.vending.change_owner": "Change Owner",
+  "gui.vending.infinite": "Infinite",
+  "gui.vending.yes": "yes",
+  "gui.vending.no": "no",
+  "gui.vending.apply": "Apply",
+  "gui.vending.isSelling": "is selling",
+  "gui.vending.for": "for",
+  "gui.vending.and": "and",
+  "gui.vending.isGivingAway": "is giving away",
+  "gui.vending.isAccepting": "is accepting",
+  "gui.vending.closed": "Shop is closed",
+
+  "gui.vending.ok": "Ok",
+  "gui.vending.cancel": "Cancel",
+  "gui.vending.number_of_credits": "Number of credits",
+  "gui.vending.toInventory": "Add to Inventory",
+  "gui.vending.buy_buffer": "Buy buffer",
+  "gui.vending.sell_buffer": "Sell buffer",
+  "gui.vending.inventory": "Inventory",
+
+  "subtitles.block.vendingMachine.click": "Vending Machine clicks",
+  "subtitles.block.vendingMachine.dispense": "Vending Machine dispensed item",
+  "subtitles.block.vendingMachineStorage.open": "Vending Machine storage opens",
+  "subtitles.block.vendingMachineStorage.close": "Vending Machine storage closes",
+
+  "vending:stat.vendingMachinesUsed": "Vending Machines Used",
+  "vending:stat.vendingMachinesOpened": "Vending Machines Opened",
+  "vending:stat.storageAttachmentsOpened": "Storage Attachments Opened"
+}
