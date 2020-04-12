@@ -2,64 +2,67 @@ package info.jbcs.minecraft.vending.network.server;
 
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.init.VendingItems;
-import info.jbcs.minecraft.vending.network.AbstractMessage;
-import info.jbcs.minecraft.vending.tileentity.TileEntityVendingMachine;
-import net.minecraft.entity.player.EntityPlayer;
+import info.jbcs.minecraft.vending.tileentity.VendingMachineBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.io.IOException;
+import java.util.UUID;
+import java.util.function.Supplier;
 
-public class MessageWrench extends AbstractMessage.AbstractServerMessage<MessageWrench> {
+public class MessageWrench {
     private int x, y, z;
     private boolean infinite;
-    private String ownerName;
+    private UUID ownerUUID;
 
     @SuppressWarnings("unused")
     public MessageWrench() {
     }
 
-    public MessageWrench(TileEntity tileEntityVendingMachine, boolean infinite, String ownerName) {
-        TileEntityVendingMachine entity = (TileEntityVendingMachine) tileEntityVendingMachine;
+    public MessageWrench(PacketBuffer buffer) {
+        x = buffer.readInt();
+        y = buffer.readInt();
+        z = buffer.readInt();
+        infinite = buffer.readBoolean();
+        ownerUUID = buffer.readUniqueId();
+    }
+
+    public MessageWrench(TileEntity tileEntityVendingMachine, boolean infinite, UUID ownerUUID) {
+        VendingMachineBlockEntity entity = (VendingMachineBlockEntity) tileEntityVendingMachine;
         BlockPos blockPos = entity.getPos();
         x = blockPos.getX();
         y = blockPos.getY();
         z = blockPos.getZ();
         this.infinite = infinite;
-        this.ownerName = ownerName;
+        this.ownerUUID = ownerUUID;
     }
 
-    @Override
-    protected void read(PacketBuffer buffer) throws IOException {
-        x = buffer.readInt();
-        y = buffer.readInt();
-        z = buffer.readInt();
-        infinite = buffer.readBoolean();
-        ownerName = ByteBufUtils.readUTF8String(buffer);
-    }
-
-    @Override
-    protected void write(PacketBuffer buffer) throws IOException {
+    public void write(PacketBuffer buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
         buffer.writeBoolean(infinite);
-        ByteBufUtils.writeUTF8String(buffer, ownerName);
+        buffer.writeUniqueId(ownerUUID);
     }
 
-    @Override
-    public void process(EntityPlayer player, Side side) {
-        if (player.inventory.getCurrentItem().isEmpty() || player.inventory.getCurrentItem().getItem() != VendingItems.ITEM_WRENCH)
+    public void handle(Supplier<NetworkEvent.Context> ctx) {
+        ctx.get().enqueueWork(() -> {
+            ServerPlayerEntity player = ctx.get().getSender();
+            if (player.inventory.getCurrentItem().getItem() != VendingItems.WRENCH)
+                return;
+            TileEntity tileEntity = player.world.getTileEntity(new BlockPos(x, y, z));
+            if (!(tileEntity instanceof VendingMachineBlockEntity)) {
+                player.connection.disconnect(new StringTextComponent("no cheating!"));
             return;
-        TileEntity tileEntity = player.world.getTileEntity(new BlockPos(x, y, z));
-        if (!(tileEntity instanceof TileEntityVendingMachine))
-            return;
-        TileEntityVendingMachine entity = (TileEntityVendingMachine) tileEntity;
-        entity.setInfinite(infinite);
-        entity.setOwnerName(ownerName);
-        Utils.markBlockForUpdate(player.world, new BlockPos(x, y, z));
+            }
+            VendingMachineBlockEntity entity = (VendingMachineBlockEntity) tileEntity;
+            entity.setOwnerUUID(ownerUUID);
+            Utils.markBlockForUpdate(player.world, new BlockPos(x, y, z));
+        });
     }
 }

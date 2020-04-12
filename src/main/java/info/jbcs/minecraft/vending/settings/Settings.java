@@ -1,11 +1,9 @@
 package info.jbcs.minecraft.vending.settings;
 
-import info.jbcs.minecraft.vending.forge.LoaderWrapper;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
+import org.apache.commons.lang3.tuple.Pair;
 
-public class Settings implements ISettings {
-    private Configuration config;
+public class Settings {
     private boolean use_custom_creative_tab;
     private boolean close_on_sold_out;
     private boolean close_on_partial_sold_out;
@@ -13,40 +11,17 @@ public class Settings implements ISettings {
     private boolean transfer_to_inventory;
     private int offsetY;
 
+    public static ForgeConfigSpec.DoubleValue rotation_speed;
+    public static ForgeConfigSpec.DoubleValue item_size;
+    public static ForgeConfigSpec.BooleanValue show_infinite_tag;
 
-    public Settings() {
+    public static final ClientSettings CLIENT;
+    public static final ForgeConfigSpec CLIENT_SPEC;
 
-    }
-
-    private void loadConfig(Configuration config) {
-        use_custom_creative_tab = config.get("general", "use_custom_creative_tab", true, "Add a new tab to creative mode and put all vending blocks there.").getBoolean(true);
-        close_on_sold_out = config.get("general", "close_on_sold_out", false, "Stop accepting item after last item is sold out.").getBoolean(false);
-        close_on_partial_sold_out = config.get("general", "close_on_partial_sold_out", false,
-                "Stop accepting item after some item were sold out.").getBoolean(false);
-        block_placing_next_to_doors = config.get("general", "block_placing_next_to_doors", false,
-                "Check for nearby doors when block is placed " +
-                        "(Use specialized mod if you want more advanced restrictions)").getBoolean(false);
-
-        transfer_to_inventory = config.get("general", "transfer_to_inventory", false,
-                "Transfer sold item directly to player's inventory.").getBoolean(false);
-
-        int defaultOffset = (LoaderWrapper.isWAILALoaded()) ? 40 : 15;
-        offsetY = config.get("general", "offsetY", defaultOffset,
-                "Set Y offset of HUD").getInt(defaultOffset);
-    }
-
-    public void loadConfig(FMLPreInitializationEvent event) {
-        config = new Configuration(event.getSuggestedConfigurationFile());
-        config.load();
-        loadConfig(config);
-    }
-
-    public void save() {
-        config.save();
-    }
-
-    public boolean shouldUseCustomCreativeTab() {
-        return use_custom_creative_tab;
+    static {
+        final Pair<ClientSettings, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientSettings::new);
+        CLIENT_SPEC = specPair.getRight();
+        CLIENT = specPair.getLeft();
     }
 
     public boolean shouldCloseOnSoldOut() {
@@ -61,11 +36,16 @@ public class Settings implements ISettings {
         return block_placing_next_to_doors;
     }
 
-    public boolean shouldTransferToInventory() {
-        return transfer_to_inventory;
+    public static class ClientSettings {
+
+        public ClientSettings(ForgeConfigSpec.Builder builder) {
+            builder.push("client");
+            rotation_speed = builder.defineInRange("rotation_speed",.02f,0,Double.MAX_VALUE);
+            item_size = builder.defineInRange("item_size",.5f,0,Double.MAX_VALUE);
+            show_infinite_tag = builder.define("show_infinite_tag",true);
+
+        }
     }
 
-    public int getOffsetY() {
-        return offsetY;
-    }
+
 }
