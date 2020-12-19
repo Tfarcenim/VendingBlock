@@ -22,3 +22,5 @@ eclipse
 run
 *.class
 classes
+logs/debug.log
+logs/latest.log
