@@ -4,7 +4,7 @@
   "block.vendingMachineAdvanced": "Advanced Vending Block",
   "block.vendingMachineMultiple": "Multiple Vending Block",
   "item.vendingMachineWrench": "Vending Block Wrench",
-  "itemGroup.tabVending": "Vending",
+  "itemGroup.vending": "Vending",
   "block.vendingStorageAttachment": "Vending Storage Attachment",
 
   "text.vending.insufficient_funds" : "Insufficient funds",

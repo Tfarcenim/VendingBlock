@@ -13,8 +13,8 @@ import info.jbcs.minecraft.vending.inventory.WrenchContainer;
 import info.jbcs.minecraft.vending.network.PacketHandler;
 import info.jbcs.minecraft.vending.renderer.VendingMachineBlockEntityRenderer;
 import info.jbcs.minecraft.vending.settings.Settings;
-import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import info.jbcs.minecraft.vending.tileentity.VendingMachineBlockEntity;
+import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -97,7 +97,7 @@ public class Vending {
         World world = player.world;
         Block block = e.getState().getBlock();
         if (block instanceof VendingMachineBlock) {
-            VendingMachineBlockEntity vending = (VendingMachineBlockEntity)world.getTileEntity(pos);
+            InfiniteVendingMachineBlockEntity vending = (InfiniteVendingMachineBlockEntity)world.getTileEntity(pos);
             if (vending != null) {
                 if (!vending.isOwner(player)){
                     e.setNewSpeed(0);
@@ -112,7 +112,7 @@ public class Vending {
         World world = player.world;
         Block block = e.getState().getBlock();
         if (block instanceof VendingMachineBlock) {
-            VendingMachineBlockEntity vending = (VendingMachineBlockEntity)world.getTileEntity(pos);
+            InfiniteVendingMachineBlockEntity vending = (InfiniteVendingMachineBlockEntity)world.getTileEntity(pos);
             if (vending != null) {
                 if (!vending.isOwner(player) && !player.abilities.isCreativeMode){
                     e.setCanceled(true);
@@ -140,10 +140,10 @@ public class Vending {
 
         @SubscribeEvent
         public static void registerBlockentities(RegistryEvent.Register<TileEntityType<?>> e){
-            register(TileEntityType.Builder.create(VendingMachineBlockEntity::new,VendingBlocks.STONE_VENDING_MACHINE).build(null),
-                    "vending_machine",e.getRegistry());
             register(TileEntityType.Builder.create(InfiniteVendingMachineBlockEntity::new,VendingBlocks.INFINITE_STONE_VENDING_MACHINE).build(null),
                     "infinite_vending_machine",e.getRegistry());
+            register(TileEntityType.Builder.create(VendingMachineBlockEntity::new,VendingBlocks.STONE_VENDING_MACHINE).build(null),
+                    "vending_machine",e.getRegistry());
         }
 
         @SubscribeEvent
@@ -171,13 +171,13 @@ public class Vending {
 
     public static class Objects {
         @ObjectHolder(MODID+":vending_machine")
-        public static final TileEntityType<VendingMachineBlockEntity> vending_machine = null;
+        public static final TileEntityType<InfiniteVendingMachineBlockEntity> vending_machine = null;
 
         @ObjectHolder(MODID+":vending_machine")
         public static final ContainerType<VendingMachineContainer> container_vending_machine = null;
 
         @ObjectHolder(MODID+":infinite_vending_machine")
-        public static final TileEntityType<InfiniteVendingMachineBlockEntity> infinite_vending_machine = null;
+        public static final TileEntityType<VendingMachineBlockEntity> infinite_vending_machine = null;
 
         @ObjectHolder(MODID+":infinite_vending_machine")
         public static final ContainerType<InfiniteVendingMachineContainer> infinite_container_vending_machine = null;

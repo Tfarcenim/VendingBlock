@@ -3,13 +3,12 @@ package info.jbcs.minecraft.vending.gui.hud;
 import com.mojang.blaze3d.systems.RenderSystem;
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.settings.Settings;
-import info.jbcs.minecraft.vending.tileentity.VendingMachineBlockEntity;
+import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.management.PlayerList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -19,7 +18,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.lwjgl.opengl.GL11;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class HintHUD {
@@ -35,8 +33,8 @@ public class HintHUD {
 		if (!(mop instanceof BlockRayTraceResult)) return;
 		BlockRayTraceResult blockRayTrace = (BlockRayTraceResult) mop;
 		TileEntity te = mc.world.getTileEntity(blockRayTrace.getPos());
-		if (!(te instanceof VendingMachineBlockEntity)) return;
-		VendingMachineBlockEntity vending = (VendingMachineBlockEntity) te;
+		if (!(te instanceof InfiniteVendingMachineBlockEntity)) return;
+		InfiniteVendingMachineBlockEntity vending = (InfiniteVendingMachineBlockEntity) te;
 
 		ITextComponent owner = vending.getOwnerName();
 

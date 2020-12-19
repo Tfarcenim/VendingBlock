@@ -2,6 +2,7 @@ package info.jbcs.minecraft.vending.network.server;
 
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.Vending;
+import info.jbcs.minecraft.vending.inventory.InfiniteVendingMachineContainer;
 import info.jbcs.minecraft.vending.inventory.VendingMachineContainer;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
@@ -24,8 +25,8 @@ public class C2SMessageLock {
 				ServerPlayerEntity player = ctx.get().getSender();
 				Container container = player.openContainer;
 				boolean handled = false;
-				if (container instanceof VendingMachineContainer) {
-					VendingMachineContainer vendingContainer = (VendingMachineContainer)container;
+				if (container instanceof InfiniteVendingMachineContainer) {
+					InfiniteVendingMachineContainer vendingContainer = (InfiniteVendingMachineContainer)container;
 
 					if (vendingContainer.blockEntity.getOwnerUUID().equals(player.getGameProfile().getId())) {
 						//vendingContainer.blockEntity.toggleLock();

@@ -2,14 +2,12 @@ package info.jbcs.minecraft.vending.network.server;
 
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.init.VendingItems;
-import info.jbcs.minecraft.vending.tileentity.VendingMachineBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.UUID;
@@ -33,7 +31,7 @@ public class MessageWrench {
     }
 
     public MessageWrench(TileEntity tileEntityVendingMachine, boolean infinite, UUID ownerUUID) {
-        VendingMachineBlockEntity entity = (VendingMachineBlockEntity) tileEntityVendingMachine;
+        InfiniteVendingMachineBlockEntity entity = (InfiniteVendingMachineBlockEntity) tileEntityVendingMachine;
         BlockPos blockPos = entity.getPos();
         x = blockPos.getX();
         y = blockPos.getY();
@@ -56,11 +54,11 @@ public class MessageWrench {
             if (player.inventory.getCurrentItem().getItem() != VendingItems.WRENCH)
                 return;
             TileEntity tileEntity = player.world.getTileEntity(new BlockPos(x, y, z));
-            if (!(tileEntity instanceof VendingMachineBlockEntity)) {
+            if (!(tileEntity instanceof InfiniteVendingMachineBlockEntity)) {
                 player.connection.disconnect(new StringTextComponent("no cheating!"));
             return;
             }
-            VendingMachineBlockEntity entity = (VendingMachineBlockEntity) tileEntity;
+            InfiniteVendingMachineBlockEntity entity = (InfiniteVendingMachineBlockEntity) tileEntity;
             entity.setOwnerUUID(ownerUUID);
             Utils.markBlockForUpdate(player.world, new BlockPos(x, y, z));
         });

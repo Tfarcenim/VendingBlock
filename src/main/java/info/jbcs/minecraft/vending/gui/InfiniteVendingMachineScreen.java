@@ -2,7 +2,6 @@ package info.jbcs.minecraft.vending.gui;
 
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.inventory.InfiniteVendingMachineContainer;
-import info.jbcs.minecraft.vending.inventory.VendingMachineContainer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;

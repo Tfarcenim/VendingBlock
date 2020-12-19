@@ -2,33 +2,29 @@ package info.jbcs.minecraft.vending.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import info.jbcs.minecraft.vending.settings.Settings;
-import info.jbcs.minecraft.vending.tileentity.VendingMachineBlockEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SlabBlock;
+import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.Util;
 
 import java.util.List;
 
-public class VendingMachineBlockEntityRenderer extends TileEntityRenderer<VendingMachineBlockEntity> {
+public class VendingMachineBlockEntityRenderer extends TileEntityRenderer<InfiniteVendingMachineBlockEntity> {
 
 	public VendingMachineBlockEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
 		super(rendererDispatcherIn);
 	}
 
 	@Override
-	public void render(VendingMachineBlockEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLightIn, int combinedOverlayIn) {
+	public void render(InfiniteVendingMachineBlockEntity blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLightIn, int combinedOverlayIn) {
 		ItemStack selling = blockEntity.selling.getStackInSlot(0);
 		if (!selling.isEmpty()) {
 			if (this.renderDispatcher.renderInfo != null && blockEntity.getDistanceSq(this.renderDispatcher.renderInfo.getProjectedView().x,
@@ -54,11 +50,11 @@ public class VendingMachineBlockEntityRenderer extends TileEntityRenderer<Vendin
 		}
 	}
 
-	protected void renderNames(VendingMachineBlockEntity blockEntity, List<String> messages, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
+	protected void renderNames(InfiniteVendingMachineBlockEntity blockEntity, List<String> messages, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
 		messages.forEach(message -> renderName(blockEntity,message,matrixStackIn,bufferIn,packedLightIn));
 	}
 
-	protected void renderName(VendingMachineBlockEntity blockEntity, String displayNameIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+	protected void renderName(InfiniteVendingMachineBlockEntity blockEntity, String displayNameIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		double d0 = blockEntity.getDistanceSq(this.renderDispatcher.renderInfo.getProjectedView().x,
 						this.renderDispatcher.renderInfo.getProjectedView().y, this.renderDispatcher.renderInfo.getProjectedView().z);
 		if (!(d0 > 512.0D)) {

@@ -1,18 +1,11 @@
 package info.jbcs.minecraft.vending.network.server;
 
-import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.init.VendingItems;
-import info.jbcs.minecraft.vending.inventory.InfiniteVendingMachineContainer;
-import info.jbcs.minecraft.vending.inventory.VendingMachineContainer;
 import info.jbcs.minecraft.vending.inventory.WrenchContainer;
-import info.jbcs.minecraft.vending.tileentity.VendingMachineBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.server.management.PlayerList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -53,7 +46,7 @@ public class C2SVerifyNameMessage {
                     player.sendMessage(new StringTextComponent("Invalid Name"));
                 } else {
                     UUID uuid = newOwner.getUniqueID();
-                    ((VendingMachineBlockEntity)((WrenchContainer)container).blockEntity).setOwnerUUID(uuid);
+                    ((InfiniteVendingMachineBlockEntity)((WrenchContainer)container).blockEntity).setOwnerUUID(uuid);
                 }
             }
         });

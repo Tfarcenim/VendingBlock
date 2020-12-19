@@ -3,8 +3,8 @@ package info.jbcs.minecraft.vending.block;
 import info.jbcs.minecraft.vending.init.VendingItems;
 import info.jbcs.minecraft.vending.init.VendingSoundEvents;
 import info.jbcs.minecraft.vending.inventory.WrenchContainer;
-import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import info.jbcs.minecraft.vending.tileentity.VendingMachineBlockEntity;
+import info.jbcs.minecraft.vending.tileentity.InfiniteVendingMachineBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -14,9 +14,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.IContainerProvider;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -35,7 +33,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
 import static info.jbcs.minecraft.vending.stats.ModStats.VENDING_MACHINES_OPENED;
@@ -51,7 +48,7 @@ public class VendingMachineBlock extends Block {
 
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult p_225533_6_) {
-		VendingMachineBlockEntity tileEntity = (VendingMachineBlockEntity) world.getTileEntity(pos);
+		InfiniteVendingMachineBlockEntity tileEntity = (InfiniteVendingMachineBlockEntity) world.getTileEntity(pos);
 		if (player.inventory.getCurrentItem().getItem() == VendingItems.WRENCH && !world.isRemote) {
 			NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
 				@Override
@@ -94,8 +91,8 @@ public class VendingMachineBlock extends Block {
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entityLiving, @Nonnull ItemStack stack) {
 		TileEntity te = world.getTileEntity(pos);
 
-		if (entityLiving != null && te instanceof VendingMachineBlockEntity && !world.isRemote) {
-			VendingMachineBlockEntity teVend = (VendingMachineBlockEntity) te;
+		if (entityLiving != null && te instanceof InfiniteVendingMachineBlockEntity && !world.isRemote) {
+			InfiniteVendingMachineBlockEntity teVend = (InfiniteVendingMachineBlockEntity) te;
 			PlayerEntity player = (PlayerEntity) entityLiving;
 			teVend.setOwnerUUID(player.getGameProfile().getId());
 			teVend.markDirty();
@@ -118,8 +115,6 @@ public class VendingMachineBlock extends Block {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if (tileentity instanceof VendingMachineBlockEntity) {
 			VendingMachineBlockEntity vending = (VendingMachineBlockEntity) tileentity;
-			dropItems(vending.buying, worldIn, pos);
-			dropItems(vending.selling, worldIn, pos);
 			if (!infinite)dropItems(vending.inventory, worldIn, pos);
 			worldIn.updateComparatorOutputLevel(pos, this);
 		}
