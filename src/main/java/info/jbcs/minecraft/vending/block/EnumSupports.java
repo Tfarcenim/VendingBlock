@@ -25,11 +25,6 @@ public enum EnumSupports implements IStringSerializable {
     DIAMOND("blockdiamond", Blocks.DIAMOND_BLOCK, Items.DIAMOND),
     EMERALD( "blockemerald", Blocks.EMERALD_BLOCK, Items.EMERALD),
     LAPIS( "blocklapis", Blocks.LAPIS_BLOCK, Blocks.LAPIS_BLOCK);
-    public final static int length = values().length;
-
-    static {
-        EnumSupports[] var0 = values();
-    }
 
     private final String name;
     private final Block supportBlock;
