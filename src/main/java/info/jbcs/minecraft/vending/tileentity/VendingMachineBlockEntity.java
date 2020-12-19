@@ -21,7 +21,7 @@ public class VendingMachineBlockEntity extends InfiniteVendingMachineBlockEntity
 
 	@Override
 	public boolean isInfinite(){
-		return true;
+		return false;
 	}
 
 	@Override

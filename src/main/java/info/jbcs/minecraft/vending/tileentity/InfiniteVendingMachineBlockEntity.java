@@ -43,8 +43,8 @@ public class InfiniteVendingMachineBlockEntity extends TileEntity implements INa
 		}
 	};
 
-	public boolean isInfinite(){
-		return false;
+	public boolean isInfinite() {
+		return true;
 	}
 
 	private UUID ownerUUID;
