@@ -1,5 +1,6 @@
 package info.jbcs.minecraft.vending.gui.hud;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.settings.Settings;
@@ -12,7 +13,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -36,7 +40,9 @@ public class HintHUD {
 		if (!(te instanceof InfiniteVendingMachineBlockEntity)) return;
 		InfiniteVendingMachineBlockEntity vending = (InfiniteVendingMachineBlockEntity) te;
 
-		ITextComponent owner = vending.getOwnerName();
+		StringTextComponent owner = (StringTextComponent) vending.getOwnerName();
+
+		MatrixStack matrices = event.getMatrixStack();
 
 		MainWindow resolution = mc.getMainWindow();
 
@@ -48,22 +54,25 @@ public class HintHUD {
 
 		if (owner != null) {
 
-			String topText = owner.getFormattedText() + " is selling";
+
+
+			IFormattableTextComponent textComponent = owner.copyRaw().append(new StringTextComponent(" "))
+					.append(new TranslationTextComponent("gui.vending.isSelling"));
+
 
 			String bottomText = "for ";
 
-			int barw = mc.fontRenderer.getStringWidth(topText) + 24;
+			int barw = mc.fontRenderer.getStringPropertyWidth(textComponent) + 24;
 
-			AbstractGui.fill(centerx - barw / 2, 0,
+			AbstractGui.fill(matrices,centerx - barw / 2, 0,
 							centerx + barw / 2, 50, 0x7F000000);
 
-			mc.fontRenderer.drawString(topText,
-							centerx - barw / 2 + 4, 3, 0xffffff);
+			mc.fontRenderer.func_243246_a(matrices,textComponent, centerx - barw / 2 + 4, 3, 0xffffff);
 
-			mc.fontRenderer.drawString(bottomText,
+			mc.fontRenderer.drawString(matrices,bottomText,
 							centerx - barw / 2 + 4, 19, 0xffffff);
 
-			if (vending.isInfinite() && Settings.show_infinite_tag.get())mc.fontRenderer.drawString("Infinite Stock",
+			if (vending.isInfinite() && Settings.show_infinite_tag.get())mc.fontRenderer.drawString(matrices,"Infinite Stock",
 							centerx - barw / 2 + 4, 35, 0xffffff);
 
 			final int sellX = centerx + barw/2 - 18;

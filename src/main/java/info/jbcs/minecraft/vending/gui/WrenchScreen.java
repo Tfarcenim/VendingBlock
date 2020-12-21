@@ -1,5 +1,6 @@
 package info.jbcs.minecraft.vending.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.inventory.WrenchContainer;
@@ -16,6 +17,8 @@ import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_TAB;
@@ -28,12 +31,12 @@ public class WrenchScreen extends ContainerScreen<WrenchContainer> implements IC
 	}
 
 	@Override
-	public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-		this.renderBackground();
-		super.render(p_render_1_, p_render_2_, p_render_3_);
+	public void render(MatrixStack matrices, int p_render_1_, int p_render_2_, float p_render_3_) {
+		this.renderBackground(matrices);
+		super.render(matrices,p_render_1_, p_render_2_, p_render_3_);
 		RenderSystem.disableBlend();
-		this.input.render(p_render_1_, p_render_2_, p_render_3_);
-		this.renderHoveredToolTip(p_render_1_, p_render_2_);
+		this.input.render(matrices,p_render_1_, p_render_2_, p_render_3_);
+		this.renderHoveredTooltip(matrices,p_render_1_, p_render_2_);
 	}
 
 	private void onEdited(String text) {
@@ -52,9 +55,9 @@ public class WrenchScreen extends ContainerScreen<WrenchContainer> implements IC
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int a, int b) {
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrices,int a, int b) {
 		FontRenderer font = this.font;
-		font.drawString(net.minecraft.client.resources.I18n.format("gui.vending.change_owner").trim(), 21, 37, 0x404040);
+		font.drawString(matrices,net.minecraft.client.resources.I18n.format("gui.vending.change_owner").trim(), 21, 37, 0x404040);
 	}
 
 	/**
@@ -65,7 +68,7 @@ public class WrenchScreen extends ContainerScreen<WrenchContainer> implements IC
 	 * @param mouseY
 	 */
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(MatrixStack matrices,float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Utils.bind("vending:textures/wrench-gui.png");
 		int i = (this.width - this.xSize) / 2;
@@ -74,8 +77,8 @@ public class WrenchScreen extends ContainerScreen<WrenchContainer> implements IC
 		int y = 48;
 		int x1 = 134;
 		int y1 = 30;
-		this.blit(i, j, 0, 0, this.xSize, this.ySize);
-		fill(i+x,j+y,i+126+x,j+12+y,0xff000000);
+		this.blit(matrices,i, j, 0, 0, this.xSize, this.ySize);
+		fill(matrices,i+x,j+y,i+126+x,j+12+y,0xff000000);
 	}
 	@Override
 	protected void init() {
@@ -84,7 +87,7 @@ public class WrenchScreen extends ContainerScreen<WrenchContainer> implements IC
 		this.minecraft.keyboardListener.enableRepeatEvents(true);
 		int i = (this.width - this.xSize) / 2;
 		int j = (this.height - this.ySize) / 2;
-		this.input = new TextFieldWidget(this.font, i + 29, j + 50, 120, 12, I18n.format("container.repair"));
+		this.input = new TextFieldWidget(this.font, i + 29, j + 50, 120, 12,new TranslationTextComponent("container.repair"));
 		this.input.setCanLoseFocus(false);
 		this.input.changeFocus(true);
 		this.input.setTextColor(-1);
@@ -97,7 +100,7 @@ public class WrenchScreen extends ContainerScreen<WrenchContainer> implements IC
 		this.setFocusedDefault(this.input);
 
 
-		this.addButton(new Button(guiLeft + 62, guiTop + 100 ,30,20,"Save",
+		this.addButton(new Button(guiLeft + 62, guiTop + 100 ,30,20,new StringTextComponent("Save"),
 						b -> {
 							PacketHandler.dispatcher.sendToServer(new C2SVerifyNameMessage(input.getText()));
 						}));

@@ -4,6 +4,7 @@ import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.Vending;
 import info.jbcs.minecraft.vending.inventory.InfiniteVendingMachineContainer;
 import info.jbcs.minecraft.vending.inventory.VendingMachineContainer;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -16,6 +17,8 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -59,7 +62,7 @@ public class InfiniteVendingMachineBlockEntity extends TileEntity implements INa
 	}
 
 	public UUID getOwnerUUID() {
-		return ownerUUID;
+		return ownerUUID != null ? ownerUUID : Util.DUMMY_UUID;
 	}
 
 	public boolean isOwner(PlayerEntity player) {
@@ -72,14 +75,14 @@ public class InfiniteVendingMachineBlockEntity extends TileEntity implements INa
 	}
 
 	@Override
-	public void read(CompoundNBT nbttagcompound) {
+	public void read(BlockState state, CompoundNBT nbttagcompound) {
 
 		buying.deserializeNBT(nbttagcompound.getCompound("buy"));
 		selling.deserializeNBT(nbttagcompound.getCompound("sell"));
 
 		ownerUUID = nbttagcompound.getUniqueId("uuid");
 		ownerName = new StringTextComponent(nbttagcompound.getString("name"));
-		super.read(nbttagcompound);
+		super.read(state,nbttagcompound);
 	}
 
 	@Override
@@ -117,7 +120,7 @@ public class InfiniteVendingMachineBlockEntity extends TileEntity implements INa
 
 	@Override
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-		read(pkt.getNbtCompound());
+		read(getBlockState(),pkt.getNbtCompound());
 	}
 
 	public void vend(PlayerEntity player, Direction face, boolean simulate) {
@@ -138,7 +141,7 @@ public class InfiniteVendingMachineBlockEntity extends TileEntity implements INa
 				if (temp.getStackInSlot(0).getCount() >= required.getCount()) return true;
 			}
 		}
-		player.sendMessage(new TranslationTextComponent("text.vending.insufficient_funds"));
+		player.sendMessage(new TranslationTextComponent("text.vending.insufficient_funds"), Util.DUMMY_UUID);
 		return false;
 	}
 

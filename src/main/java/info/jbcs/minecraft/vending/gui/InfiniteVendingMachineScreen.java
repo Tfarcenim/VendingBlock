@@ -1,5 +1,6 @@
 package info.jbcs.minecraft.vending.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.inventory.InfiniteVendingMachineContainer;
 import net.minecraft.client.gui.FontRenderer;
@@ -31,18 +32,18 @@ public class InfiniteVendingMachineScreen extends ContainerScreen<InfiniteVendin
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int a, int b) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack stack,int a, int b) {
         FontRenderer font = this.font;
-        font.drawString(net.minecraft.client.resources.I18n.format("gui.vending.sell").trim(), 12, 87, 0x404040);
-        font.drawString(net.minecraft.client.resources.I18n.format("gui.vending.buy").trim(), 12, 20, 0x404040);
+        font.drawString(stack,net.minecraft.client.resources.I18n.format("gui.vending.sell").trim(), 12, 87, 0x404040);
+        font.drawString(stack,net.minecraft.client.resources.I18n.format("gui.vending.buy").trim(), 12, 20, 0x404040);
 
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int a, int b) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack stack,float f, int a, int b) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         Utils.bind("vending:textures/infinite-vending-gui.png");
-        blit((width - xSize) / 2, (height - ySize) / 2, 0, 0, xSize, ySize);
+        blit(stack,(width - xSize) / 2, (height - ySize) / 2, 0, 0, xSize, ySize);
     }
 
     @Override
@@ -50,9 +51,9 @@ public class InfiniteVendingMachineScreen extends ContainerScreen<InfiniteVendin
     }
     
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks){
-        renderBackground();
-        super.render(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+    public void render(MatrixStack stack,int mouseX, int mouseY, float partialTicks){
+        renderBackground(stack);
+        super.render(stack,mouseX, mouseY, partialTicks);
+        this.renderHoveredTooltip(stack,mouseX, mouseY);
     }
 }

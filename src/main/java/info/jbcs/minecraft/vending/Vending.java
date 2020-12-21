@@ -84,8 +84,8 @@ public class Vending {
         ScreenManager.registerFactory(Objects.infinite_container_vending_machine, InfiniteVendingMachineScreen::new);
         ScreenManager.registerFactory(Objects.container_wrench, WrenchScreen::new);
 
-        RenderTypeLookup.setRenderLayer(VendingBlocks.STONE_VENDING_MACHINE, RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(VendingBlocks.INFINITE_STONE_VENDING_MACHINE, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(VendingBlocks.STONE_VENDING_MACHINE, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(VendingBlocks.INFINITE_STONE_VENDING_MACHINE, RenderType.getCutout());
         ClientRegistry.bindTileEntityRenderer(Objects.vending_machine, VendingMachineBlockEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(Objects.infinite_vending_machine, VendingMachineBlockEntityRenderer::new);
 

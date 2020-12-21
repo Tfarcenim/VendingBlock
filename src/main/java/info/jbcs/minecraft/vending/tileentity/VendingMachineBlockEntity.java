@@ -3,12 +3,14 @@ package info.jbcs.minecraft.vending.tileentity;
 import info.jbcs.minecraft.vending.Vending;
 import info.jbcs.minecraft.vending.inventory.InfiniteVendingMachineContainer;
 import info.jbcs.minecraft.vending.inventory.VendingMachineContainer;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -37,7 +39,7 @@ public class VendingMachineBlockEntity extends InfiniteVendingMachineBlockEntity
 				break;
 			}
 		}
-		player.sendMessage(new TranslationTextComponent("text.vending.out_of_stock"));
+		player.sendMessage(new TranslationTextComponent("text.vending.out_of_stock"), Util.DUMMY_UUID);
 		return false;
 	}
 
@@ -82,8 +84,8 @@ public class VendingMachineBlockEntity extends InfiniteVendingMachineBlockEntity
 	}
 
 	@Override
-	public void read(CompoundNBT nbttagcompound) {
-		super.read(nbttagcompound);
+	public void read(BlockState state,CompoundNBT nbttagcompound) {
+		super.read(state,nbttagcompound);
 		inventory.deserializeNBT(nbttagcompound.getCompound("inv"));
 	}
 

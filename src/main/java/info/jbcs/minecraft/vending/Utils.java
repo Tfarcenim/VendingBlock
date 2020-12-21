@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class Utils {
 
     public static void throwAtPlayer(PlayerEntity player, Direction face, ItemEntity item,BlockPos vendingPos){
 
-			Vec3d pos = new Vec3d(vendingPos.getX()+.5,vendingPos.getY()+.5,vendingPos.getZ()+.5);
+			Vector3d pos = new Vector3d(vendingPos.getX()+.5,vendingPos.getY()+.5,vendingPos.getZ()+.5);
 
 			switch (face) {
 				case WEST: pos = pos.add(-.7,0,0);break;

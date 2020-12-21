@@ -65,7 +65,7 @@ public class VendingMachineBlock extends Block {
 		}
 
 		if (tileEntity.isOwner(player) && !player.isCrouching() ||
-						player.abilities.isCreativeMode && !player.isShiftKeyDown()) {
+						player.abilities.isCreativeMode && !player.isSneaking()) {
 			if (!world.isRemote) {
 				player.addStat(VENDING_MACHINES_OPENED);
 				NetworkHooks.openGui((ServerPlayerEntity) player, tileEntity, pos);
