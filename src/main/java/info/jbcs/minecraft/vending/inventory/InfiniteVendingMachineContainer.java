@@ -49,11 +49,10 @@ public class InfiniteVendingMachineContainer extends AbstractVendingMachineConta
     
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+            ItemStack stackInSlot = slot.getStack();
+            ItemStack itemstack = stackInSlot.copy();
             //filter slots
             if (index < 2) {
                 slot.putStack(ItemStack.EMPTY);

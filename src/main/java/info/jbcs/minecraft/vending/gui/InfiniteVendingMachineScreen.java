@@ -5,6 +5,7 @@ import info.jbcs.minecraft.vending.Utils;
 import info.jbcs.minecraft.vending.inventory.InfiniteVendingMachineContainer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.opengl.GL11;
@@ -34,8 +35,8 @@ public class InfiniteVendingMachineScreen extends ContainerScreen<InfiniteVendin
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack stack,int a, int b) {
         FontRenderer font = this.font;
-        font.drawString(stack,net.minecraft.client.resources.I18n.format("gui.vending.sell").trim(), 12, 87, 0x404040);
-        font.drawString(stack,net.minecraft.client.resources.I18n.format("gui.vending.buy").trim(), 12, 20, 0x404040);
+        font.drawString(stack, I18n.format("gui.vending.sell").trim(), 12, 87, 0x404040);
+        font.drawString(stack, I18n.format("gui.vending.buy").trim(), 12, 20, 0x404040);
 
     }
 

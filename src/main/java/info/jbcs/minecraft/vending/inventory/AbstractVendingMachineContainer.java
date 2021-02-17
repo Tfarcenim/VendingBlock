@@ -99,12 +99,12 @@ public class AbstractVendingMachineContainer extends Container {
                     return ItemStack.EMPTY;
                 }
 
-                Slot slot5 = this.inventorySlots.get(slotId);
-                if (slot5 == null || !slot5.canTakeStack(player)) {
+                Slot clickedSlot = this.inventorySlots.get(slotId);
+                if (clickedSlot == null || !clickedSlot.canTakeStack(player)) {
                     return ItemStack.EMPTY;
                 }
 
-                for (ItemStack itemstack8 = this.transferStackInSlot(player, slotId); !itemstack8.isEmpty() && ItemStack.areItemsEqual(slot5.getStack(), itemstack8); itemstack8 = this.transferStackInSlot(player, slotId)) {
+                for (ItemStack itemstack8 = this.transferStackInSlot(player, slotId); !itemstack8.isEmpty() && ItemStack.areItemsEqual(clickedSlot.getStack(), itemstack8); itemstack8 = this.transferStackInSlot(player, slotId)) {
                     itemstack = itemstack8.copy();
                 }
             } else {
@@ -128,7 +128,6 @@ public class AbstractVendingMachineContainer extends Container {
                             }
                             if (clickedSlot instanceof GhostSlot) {
                                 ItemStack stack = mouseStack.copy();
-                                stack.setCount(1);
                                 clickedSlot.putStack(stack);
                             } else {
                                 clickedSlot.putStack(mouseStack.split(j2));

@@ -22,9 +22,4 @@ public class GhostSlot extends SlotItemHandler {
 		return super.onTake(thePlayer, stack);
 	}
 
-	@Nonnull
-	@Override
-	public ItemStack decrStackSize(int amount) {
-		return super.decrStackSize(amount);
-	}
 }
