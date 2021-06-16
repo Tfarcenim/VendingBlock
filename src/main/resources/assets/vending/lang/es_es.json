@@ -1,0 +1,47 @@
+{
+  "block.vending.stone_vending_machine": "Máquina expendedora de piedra",
+  "block.vending.infinite_stone_vending_machine": "Máquina expendedora infinita de piedra",
+  "block.vendingMachineAdvanced": "Máquina expendedora avanzada",
+  "block.vendingMachineMultiple": "Máquina expendedora múltiple",
+  "item.vendingMachineWrench": "Llave para máquina expendedora",
+  "itemGroup.vending": "Expendedoras",
+  "block.vendingStorageAttachment": "Accesorio de almacenamiento para expendedora",
+
+  "text.vending.insufficient_funds" : "Fondos insuficientes",
+  "text.vending.out_of_stock" : "Agotado",
+
+  "gui.vending.select": "Seleccione...",
+  "gui.vending.buy_storage": "Almacén de compra",
+  "gui.vending.sell_storage": "Almacén de venta",
+  "gui.vending.sell": "Comprar",
+  "gui.vending.buy": "Vender",
+  "gui.vending.settings": "Ajustes de la máquina expendedora",
+  "gui.vending.change_owner": "Cambiar de dueño",
+  "gui.vending.infinite": "Infinito",
+  "gui.vending.yes": "sí",
+  "gui.vending.no": "no",
+  "gui.vending.apply": "Aplicar",
+  "gui.vending.isSelling": "esta vendiendo",
+  "gui.vending.for": "por",
+  "gui.vending.and": "y",
+  "gui.vending.isGivingAway": "esta regalando",
+  "gui.vending.isAccepting": "esta aceptando",
+  "gui.vending.closed": "Tienda cerrada",
+
+  "gui.vending.ok": "Ok",
+  "gui.vending.cancel": "Cancelar",
+  "gui.vending.number_of_credits": "Numero de creditos",
+  "gui.vending.toInventory": "Agregar al inventario",
+  "gui.vending.buy_buffer": "Almacén de compra",
+  "gui.vending.sell_buffer": "Almacén de venta",
+  "gui.vending.inventory": "Inventario",
+
+  "subtitles.block.vendingMachine.click": "Clics de máquina expendedora",
+  "subtitles.block.vendingMachine.dispense": "Objeto dispensado de máquina expendedora",
+  "subtitles.block.vendingMachineStorage.open": "Almacén de máquina expendedora abierto",
+  "subtitles.block.vendingMachineStorage.close": "Almacén de máquina expendedora cerrado",
+
+  "vending:stat.vendingMachinesUsed": "Máquinas expendedoras usadas",
+  "vending:stat.vendingMachinesOpened": "Máquinas expendedoras abiertas",
+  "vending:stat.storageAttachmentsOpened": "Accesorios de almacenamiento abiertos"
+}
